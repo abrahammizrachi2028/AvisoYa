@@ -1,0 +1,447 @@
+@import "tailwindcss";
+
+/* ---- Tokens: paleta, tipografía y superficies ---- */
+@theme {
+  /* Azul claro: color de acento. El blanco sigue siendo el protagonista. */
+  --color-brand-50: #f0f9ff;
+  --color-brand-100: #e0f2fe;
+  --color-brand-200: #bae6fd;
+  --color-brand-300: #7dd3fc;
+  --color-brand-400: #38bdf8;
+  --color-brand-500: #0ea5e9;
+  --color-brand-600: #0369a1;
+  --color-brand-700: #075985;
+
+  --color-ink: #0f1c2e;
+  --color-body: #33475f;
+  --color-muted: #52637a;
+  --color-faint: #5f6f85;
+  --color-line: #e4eaf1;
+  --color-line-strong: #cfd9e5;
+  --color-canvas: #f5f8fb;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  ::selection {
+    background: var(--color-brand-200);
+    color: var(--color-brand-700);
+  }
+  /* Scrollbar discreta en los cuadros con scroll horizontal */
+  .scroll-soft {
+    scrollbar-width: thin;
+    scrollbar-color: #bcd3e6 transparent;
+  }
+  .scroll-soft::-webkit-scrollbar {
+    height: 8px;
+  }
+  .scroll-soft::-webkit-scrollbar-thumb {
+    background: #cbdcea;
+    border-radius: 99px;
+  }
+  .scroll-soft::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@layer components {
+  /* ---- Superficies ---- */
+  .card {
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.03);
+  }
+  .card-soft {
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: 14px;
+  }
+  .panel-accent {
+    background: linear-gradient(180deg, #eff9ff 0%, #fbfeff 100%);
+    border: 1px solid var(--color-brand-200);
+    border-radius: 16px;
+  }
+
+  /* ---- Botones ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.15;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease,
+      box-shadow 0.15s ease, transform 0.12s ease;
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(0.5px);
+  }
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  .btn:focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+  .btn-primary {
+    background: var(--color-brand-600);
+    color: #fff;
+    box-shadow: 0 1px 2px rgba(3, 105, 161, 0.22);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-brand-700);
+  }
+  .btn-secondary {
+    background: #fff;
+    color: var(--color-ink);
+    border-color: var(--color-line);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background: #f8fafc;
+    border-color: var(--color-line-strong);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-muted);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: #eef0f4;
+    color: var(--color-ink);
+  }
+  .btn-success {
+    background: #059669;
+    color: #fff;
+    box-shadow: 0 1px 2px rgba(5, 150, 105, 0.24);
+  }
+  .btn-success:hover:not(:disabled) {
+    background: #047857;
+  }
+  .btn-warn {
+    background: #d97706;
+    color: #fff;
+  }
+  .btn-warn:hover:not(:disabled) {
+    background: #b45309;
+  }
+  .btn-sm {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.8125rem;
+    border-radius: 9px;
+  }
+  /* En pantallas táctiles todo lo pulsable llega al mínimo cómodo para el dedo. */
+  @media (pointer: coarse) {
+    .btn,
+    .choice,
+    .seg-btn,
+    .celda-clase {
+      min-height: 44px;
+    }
+    .field,
+    .field-group input {
+      font-size: 1rem; /* evita el zoom automático de iOS al enfocar */
+    }
+  }
+
+  /* ---- Formularios ---- */
+  .field {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--color-line-strong);
+    background: #fff;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--color-ink);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .field::placeholder {
+    color: #7c8b9e;
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-brand-500);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+  }
+  select.field {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center;
+    padding-right: 2rem;
+  }
+  .label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-body);
+    margin-bottom: 0.35rem;
+  }
+
+  /* ---- Control segmentado (pestañas) ---- */
+  .seg {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    background: #e7eef6;
+    border-radius: 12px;
+  }
+  .seg-btn {
+    flex: 1;
+    text-align: center;
+    border-radius: 9px;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .seg-btn:hover {
+    color: var(--color-ink);
+  }
+  .seg-btn[data-active="true"] {
+    background: #fff;
+    color: var(--color-brand-700);
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.07);
+  }
+
+  /* ---- Selector de opciones (cambio / cancelar / anotación…) ---- */
+  .choice {
+    flex: 1;
+    border: 1px solid var(--color-line-strong);
+    background: #fff;
+    border-radius: 10px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-body);
+    transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+    cursor: pointer;
+  }
+  .choice:hover {
+    border-color: #9fb3c8;
+  }
+  .choice:focus-visible,
+  .seg-btn:focus-visible,
+  .celda-clase:focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: -2px;
+    border-radius: 10px;
+  }
+  .choice[data-active="true"] {
+    border-color: var(--color-brand-500);
+    background: var(--color-brand-50);
+    color: var(--color-brand-700);
+  }
+  .choice[data-active="true"][data-tone="danger"] {
+    border-color: #f87171;
+    background: #fef2f2;
+    color: #b91c1c;
+  }
+  .choice[data-active="true"][data-tone="warn"] {
+    border-color: #fbbf24;
+    background: #fffbeb;
+    color: #b45309;
+  }
+
+  /* ---- Insignias ---- */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: 999px;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .badge-neutral {
+    background: #eef2f7;
+    color: var(--color-muted);
+  }
+  .badge-brand {
+    background: var(--color-brand-50);
+    color: var(--color-brand-700);
+  }
+  .badge-warn {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .badge-danger {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+  .badge-ok {
+    background: #d1fae5;
+    color: #047857;
+  }
+
+
+  /* ---- Color por familia de materia (celdas y tarjetas de clase) ---- */
+  .tinte {
+    border-left: 3px solid var(--tinte-line);
+    background: var(--tinte-bg);
+  }
+  .tinte-mate {
+    --tinte-bg: #eef4ff;
+    --tinte-line: #93b4fb;
+    --tinte-ink: #1e40af;
+  }
+  .tinte-ciencia {
+    --tinte-bg: #ecfeff;
+    --tinte-line: #67e8f9;
+    --tinte-ink: #0e7490;
+  }
+  .tinte-judaica {
+    --tinte-bg: #fdf6ec;
+    --tinte-line: #f0c491;
+    --tinte-ink: #9a5b1a;
+  }
+  .tinte-letras {
+    --tinte-bg: #f2fbf5;
+    --tinte-line: #93d8ac;
+    --tinte-ink: #15803d;
+  }
+  .tinte-deporte {
+    --tinte-bg: #fdf2f8;
+    --tinte-line: #f5a8d0;
+    --tinte-ink: #9d1f62;
+  }
+  .tinte-neutro {
+    --tinte-bg: #f7f9fc;
+    --tinte-line: #cfdbe8;
+    --tinte-ink: var(--color-body);
+  }
+  .tinte-sala {
+    color: var(--tinte-ink, var(--color-muted));
+    opacity: 0.8;
+  }
+  .tinte-punto {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 3px;
+    background: var(--tinte-line);
+  }
+
+  /* ---- Insignia informativa (azul) ---- */
+  .badge-info {
+    background: var(--color-brand-100);
+    color: var(--color-brand-700);
+  }
+
+  /* ---- Campo con sufijo fijo, para el correo escolar ---- */
+  .field-group {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--color-line-strong);
+    background: #fff;
+    overflow: hidden;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .field-group:focus-within {
+    border-color: var(--color-brand-500);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
+  }
+  .field-group input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--color-ink);
+  }
+  .field-suffix {
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    background: var(--color-brand-50);
+    border-left: 1px solid var(--color-line);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-brand-700);
+    white-space: nowrap;
+  }
+
+  /* ---- Esqueletos de carga ---- */
+  .sk {
+    background: linear-gradient(90deg, #eef2f7 25%, #e3eaf2 37%, #eef2f7 63%);
+    background-size: 400% 100%;
+    animation: sk 1.3s ease-in-out infinite;
+    border-radius: 8px;
+  }
+  @keyframes sk {
+    from {
+      background-position: 100% 50%;
+    }
+    to {
+      background-position: 0 50%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sk {
+      animation: none;
+    }
+  }
+
+  /* Texto solo para lectores de pantalla (títulos de tabla, etc.). */
+  .solo-lectores {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ---- Animaciones sutiles ---- */
+  .animate-rise {
+    animation: rise 0.22s ease-out both;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-rise {
+      animation: none;
+    }
+    .btn,
+    .choice,
+    .seg-btn {
+      transition: none;
+    }
+  }
+}
