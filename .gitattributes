@@ -1,0 +1,6 @@
+# Binarios: Git no debe tocarles los saltos de línea (el PDF se corrompería).
+*.pdf binary
+*.png binary
+*.ico binary
+# Scripts de bash con saltos de línea Unix, aunque se clone en Windows.
+*.sh text eol=lf
